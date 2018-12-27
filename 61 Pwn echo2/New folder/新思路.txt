@@ -1,0 +1,14 @@
+跳转到libc中执行/bin/sh
+.text:00000000000F1147                 mov     rax, cs:environ_ptr_0
+.text:00000000000F114E                 lea     rsi, [rsp+1D8h+var_168]
+.text:00000000000F1153                 lea     rdi, aBinSh     ; "/bin/sh"
+.text:00000000000F115A                 mov     rdx, [rax]
+.text:00000000000F115D                 call    execve
+.text:00000000000F1162                 call    abort
+
+.text:00000000000F02A4                 mov     rax, cs:environ_ptr_0
+.text:00000000000F02AB                 lea     rsi, [rsp+1B8h+var_168]
+.text:00000000000F02B0                 lea     rdi, aBinSh     ; "/bin/sh"
+.text:00000000000F02B7                 mov     rdx, [rax]
+.text:00000000000F02BA                 call    execve
+.text:00000000000F02BF                 call    abort

