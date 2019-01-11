@@ -1,0 +1,33 @@
+0x01 二进制保护机制
+1.Canary（栈保护）
+这个选项表示栈保护功能有没有开启。
+
+栈溢出保护是一种缓冲区溢出攻击缓解手段，当函数存在缓冲区溢出攻击漏洞时，攻击者可以覆盖栈上的返回地址来让shellcode能够得到执行。当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canary。
+
+2.NX/DEP（堆栈不可执行）
+NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。
+
+3.PIE/ASLR（地址随机化）
+ 
+
+4.Fortify 
+这个保护机制查了很久都没有个很好的汉语形容，根据我的理解它其实和栈保护都是gcc的新的为了增强保护的一种机制，防止缓冲区溢出攻击。由于并不是太常见，也没有太多的了解。
+
+5.RelRO
+设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。
+
+
+root@kali:~/Desktop/PWN/echo3/examp# checksec bin
+[!] Pwntools does not support 32-bit Python.  Use a 64-bit release.
+[*] '/root/Desktop/PWN/echo3/examp/bin'
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found                   栈保护未开启
+    NX:       NX enabled						栈不可执行
+    PIE:      PIE enabled						地址随机化
+	
+gcc
+NX：-z execstack / -z noexecstack (关闭 / 开启)
+Canary：-fno-stack-protector /-fstack-protector / -fstack-protector-all (关闭 / 开启 / 全开启)
+PIE：-no-pie / -pie (关闭 / 开启)
+RELRO：-z norelro / -z lazy / -z now (关闭 / 部分开启 / 完全开启)
