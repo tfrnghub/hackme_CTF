@@ -1,0 +1,60 @@
+root@kali:~/Documents/python# binwalk meow.png 
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 296 x 279, 8-bit/color RGBA, non-interlaced
+41            0x29            Zlib compressed data, compressed
+48543         0xBD9F          Zip archive data, at least v1.0 to extract, name: meow/
+48606         0xBDDE          Zip archive data, encrypted at least v2.0 to extract, compressed size: 51, uncompressed size: 47, name: meow/flag
+48740         0xBE64          Zip archive data, at least v1.0 to extract, name: meow/t39.1997-6/
+48814         0xBEAE          Zip archive data, at least v1.0 to extract, name: meow/t39.1997-6/p296x100/
+48897         0xBF01          Zip archive data, encrypted at least v2.0 to extract, compressed size: 48404, uncompressed size: 48543, name: meow/t39.1997-6/p296x100/10173502_279586372215628_1950740854_n.png
+97912         0x17E78         End of Zip archive
+root@kali:~/Documents/python# foremost meow.png 
+Processing: meow.png
+|foundat=meow/UT	
+foundat=meow/flagUT	
+*|
+root@kali:~/Documents/python/output/zip# unzip -v 00000094.zip 
+Archive:  00000094.zip
+ Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
+--------  ------  ------- ---- ---------- ----- --------  ----
+       0  Stored        0   0% 2016-06-11 04:22 00000000  meow/
+      47  Defl:N       39  17% 2016-06-11 04:22 3046cea4  meow/flag
+       0  Stored        0   0% 2016-06-11 04:20 00000000  meow/t39.1997-6/
+       0  Stored        0   0% 2016-06-11 04:21 00000000  meow/t39.1997-6/p296x100/
+   48543  Defl:N    48392   0% 2014-05-13 17:59 cdad52bd  meow/t39.1997-6/p296x100/10173502_279586372215628_1950740854_n.png
+--------          -------  ---                            -------
+   48590            48431   0%                            5 files
+root@kali:~/Documents/python/output/zip# 
+
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Wed Mar 14 03:19:54 2018
+Invocation: foremost meow.png 
+Output directory: /root/Documents/python/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: meow.png
+Start: Wed Mar 14 03:19:54 2018
+Length: 95 KB (97934 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000094.zip 	      48 KB 	      48543 	 
+1:	00000000.png 	      47 KB 	          0 	  (296 x 279)
+Finish: Wed Mar 14 03:19:54 2018
+
+2 FILES EXTRACTED
+	
+zip:= 1
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Wed Mar 14 03:19:54 2018
+
+
+/***************************************************************/
+zip 文件中有一个png文件，和前面得到的png文件大小一样，crc32值一样
+压缩包明文攻击

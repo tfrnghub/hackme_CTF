@@ -1,0 +1,12 @@
+﻿mysql注释符有三种：
+1、#...
+2、"-- "，注意--后面有一个空格
+3、/*...*/
+
+
+
+mysql
+substring（str, pos） 
+substring（str, pos, length） 
+说明：substring（被截取字段，从第几位开始截取） 
+substring（被截取字段，从第几位开始截取，截取长度） 
