@@ -1,0 +1,1 @@
+把new_cute.js拖到firefox环境中解析，得到二维码
