@@ -1,0 +1,9 @@
+md5(salt+'name=guest&admin=0')#'name=guest&admin=0'
+
+
+md5(salt+'name=guest&admin=0'+padding+'&admin=1')#'name=guest&admin=0'+padding+'&admin=1'
+
+
+name=guest&admin=0\x80\x00\x00\x00\x00\x00\x90\x01\x00\x00\x00\x00\x00\x00&admin=1
+
+

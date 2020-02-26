@@ -1,0 +1,9 @@
+#cython:https://www.aloxaf.com/2018/07/hackme_inndy/#fast
+
+#Hash长度扩展攻击:https://xz.aliyun.com/t/2581#toc-9 
+
+#重合指数法攻击
+
+
+
+#z3-solver https://zhuanlan.zhihu.com/p/30548907

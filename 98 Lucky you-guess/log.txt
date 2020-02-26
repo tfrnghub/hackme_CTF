@@ -1,0 +1,2 @@
+ftp://ftp.funet.fi/pub/doc/dictionaries/DanKlein
+http://aciddr0p.net/pwls.html

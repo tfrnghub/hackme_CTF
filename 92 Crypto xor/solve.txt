@@ -1,0 +1,27 @@
+https://github.com/hellman/xortool
+
+pip3 install xortool
+
+其中-l就是指定密钥长度，-c表示出现频率最高的字符。这个需要根据经验，比如文本内容一般是空格（20），二进制文件一般是00
+
+root@kali:~/Documents# xortool -c 20 xor
+The most probable key lengths:
+   1:   8.6%
+   3:   10.6%
+   6:   9.4%
+   9:   21.8%
+  12:   7.1%
+  15:   6.2%
+  18:   14.1%
+  27:   9.7%
+  36:   7.1%
+  45:   5.4%
+Key-length can be 3*n
+1 possible key(s) of length 9:
+'hackmepls
+Found 1 plaintexts with 95%+ valid characters
+See files filename-key.csv, filename-char_used-perc_valid.csv
+
+another write up:
+https://www.aloxaf.com/2018/07/hackme_inndy/#xor
+利用重合指数法攻击
