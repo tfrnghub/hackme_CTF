@@ -26,33 +26,6 @@ Archive:  00000094.zip
    48543  Defl:N    48392   0% 2014-05-13 17:59 cdad52bd  meow/t39.1997-6/p296x100/10173502_279586372215628_1950740854_n.png
 --------          -------  ---                            -------
    48590            48431   0%                            5 files
-root@kali:~/Documents/python/output/zip# 
-
-Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
-Audit File
-
-Foremost started at Wed Mar 14 03:19:54 2018
-Invocation: foremost meow.png 
-Output directory: /root/Documents/python/output
-Configuration file: /etc/foremost.conf
-------------------------------------------------------------------
-File: meow.png
-Start: Wed Mar 14 03:19:54 2018
-Length: 95 KB (97934 bytes)
- 
-Num	 Name (bs=512)	       Size	 File Offset	 Comment 
-
-0:	00000094.zip 	      48 KB 	      48543 	 
-1:	00000000.png 	      47 KB 	          0 	  (296 x 279)
-Finish: Wed Mar 14 03:19:54 2018
-
-2 FILES EXTRACTED
-	
-zip:= 1
-png:= 1
-------------------------------------------------------------------
-
-Foremost finished at Wed Mar 14 03:19:54 2018
 
 
 /***************************************************************/

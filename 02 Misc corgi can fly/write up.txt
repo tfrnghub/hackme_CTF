@@ -1,0 +1,10 @@
+结尾 RGlkIHlvdSB0cmllZCBMU0I/Cg==
+base64解密
+root@kali:~/Documents/02# echo RGlkIHlvdSB0cmllZCBMU0I/Cg==|base64 -d
+Did you tried LSB?
+
+#LSB最低有效位隐写
+LSB全称leastsignificant bit，是一种基于图片最低有效位修改储存信息的隐写方法。
+
+
+
