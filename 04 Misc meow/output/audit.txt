@@ -1,0 +1,25 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Sat Apr 25 10:33:08 2020
+Invocation: foremost meow.png 
+Output directory: /root/.cache/vmware/drag_and_drop/l5SFj2/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: meow.png
+Start: Sat Apr 25 10:33:08 2020
+Length: 95 KB (97934 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000094.zip 	      48 KB 	      48543 	 
+1:	00000000.png 	      47 KB 	          0 	  (296 x 279)
+Finish: Sat Apr 25 10:33:08 2020
+
+2 FILES EXTRACTED
+	
+zip:= 1
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Sat Apr 25 10:33:08 2020

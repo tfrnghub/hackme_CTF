@@ -28,6 +28,49 @@ Archive:  00000094.zip
    48590            48431   0%                            5 files
 
 
+
 /***************************************************************/
 zip 文件中有一个png文件，和前面得到的png文件大小一样，crc32值一样
 压缩包明文攻击
+可以尝试用ARCHPR或者pkcrack进行明文攻击
+============================pkcrack============================
+https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html
+
+
+wget https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack/pkcrack-1.2.2.tar.gz
+tar xzf pkcrack-1.2.2.tar.gz
+cd pkcrack-1.2.2/src
+make
+
+root@kali:~/Documents/python/output/zip# zip plan.zip 00000000.png
+root@kali:~/Documents/python/# ./pkcrack -C ./output/zip/00000094.zip -c meow/t39.1997-6/p296x100/10173502_279586372215628_1950740854_n.png -P ./output/png/plain.zip  -p 00000000.png -d flag.zip -a
+Files read. Starting stage 1 on Sat Apr 25 11:28:55 2020
+Generating 1st generation of possible key2_48403 values...done.
+Found 4194304 possible key2-values.
+Now we're trying to reduce these...
+Lowest number: 980 values at offset 42158
+Lowest number: 944 values at offset 42142
+Lowest number: 911 values at offset 42114
+......
+Lowest number: 102 values at offset 12829
+Lowest number: 99 values at offset 12816
+Done. Left with 99 possible Values. bestOffset is 12816.
+Stage 1 completed. Starting stage 2 on Sat Apr 25 11:29:19 2020
+Ta-daaaaa! key0=f2a88f48, key1=bcd2cae4, key2=bd86e3f7
+Probabilistic test succeeded for 35592 bytes.
+Ta-daaaaa! key0=f2a88f48, key1=bcd2cae4, key2=bd86e3f7
+Probabilistic test succeeded for 35592 bytes.
+Ta-daaaaa! key0=f2a88f48, key1=bcd2cae4, key2=bd86e3f7
+Probabilistic test succeeded for 35592 bytes.
+Ta-daaaaa! key0=f2a88f48, key1=bcd2cae4, key2=bd86e3f7
+Probabilistic test succeeded for 35592 bytes.
+Stage 2 completed. Starting zipdecrypt on Sat Apr 25 11:29:20 2020
+Decrypting meow/flag (7ca54613495f8d895211c482)... OK!
+Decrypting meow/t39.1997-6/p296x100/10173502_279586372215628_1950740854_n.png (7cc69c9de15dc6a6f74f602f)... OK!
+Finished on Sat Apr 25 11:29:20 2020
+
+
+
+
+
+

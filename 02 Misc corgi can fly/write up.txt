@@ -1,6 +1,7 @@
+文本编辑器直接查看corgi-can-fly.png
 结尾 RGlkIHlvdSB0cmllZCBMU0I/Cg==
 base64解密
-root@kali:~/Documents/02# echo RGlkIHlvdSB0cmllZCBMU0I/Cg==|base64 -d
+root@kali:~/Documents/# echo RGlkIHlvdSB0cmllZCBMU0I/Cg==|base64 -d
 Did you tried LSB?
 
 #LSB最低有效位隐写
