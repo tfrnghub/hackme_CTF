@@ -1,0 +1,8 @@
+.ropeproject/
+__pycache__/
+demo.json
+*.egg-info/
+.eggs/
+tests/rootme.py
+*.pyc
+.idea
