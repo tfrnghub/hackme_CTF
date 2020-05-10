@@ -1,0 +1,3 @@
+php 特性 "asd" == 0 为 true
+修改cookie user的值 
+通过 echo '{"sig":0,"data":"[\"guest\",true]"}'|base64 计算
