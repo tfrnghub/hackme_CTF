@@ -1,0 +1,28 @@
+源码：
+if($_POST['name'] === 'admin') {
+    if($_POST['password'] !== $password) {
+        // show failed message if you input wrong password
+        header('Location: ./?failed=1');
+    }
+}
+
+
+<?php if($_POST['name'] === 'admin'): /* login success! */ ?>
+            <div class="alert alert-success"><code><?=$flag?></code></div>
+			
+当name等于admin时就会显示flag，但是如果password错误的话会自动跳转到./?failed=1的页面。
+
+如果输入name=admin，password=123(其它任意值)，再抓报(burpsuit),会发现请求了两次，
+第一次能读到flag，第二次自动跳转到failed页面。
+
+
+注意：
+curl -d "name=admin&passwodr=123" https://hackme.inndy.tw/login4/抓包能直接获得flag。
+(curl -d "name=admin" https://hackme.inndy.tw/login4/ 也可以)
+但是用python、postman默认都是两次请求，只能返回最后一次的结果。
+
+=======================================================================
+python + burpsuit 代理能发现是两次请求
+request 请求中传入 allow_redirects=False 可以得到flag
+=======================================================================
+postman 设置 Automatically follow redirects [off] 可以得到flag

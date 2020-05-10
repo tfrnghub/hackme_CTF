@@ -1,0 +1,54 @@
+源码
+<form action="." method="POST" id="form_login">
+	<div class="form-group">
+		<label for="username">User:</label>
+		<input id="username" class="form-control" type="text" name="name" placeholder="User">
+	</div>
+	<div class="form-group">
+		<label for="password">Pass:</label>
+		<input id="password" class="form-control" type="text" name="password" placeholder="Password">
+	</div>
+	<div class="form-group">
+		<input class="form-control btn btn-primary" type="submit" value="Login">
+	</div>
+
+	<input type="hidden" name="data" id="login_data" value="{}">
+</form>
+
+form_login.onsubmit = function () {
+	login_data.value = JSON.stringify({
+		username: username.value,
+		password: password.value
+	});
+	username.value = null;
+	password.value = null;
+};
+
+if(!empty($_POST['data'])) {
+    try {
+        $data = json_decode($_POST['data'], true);
+    } catch (Exception $e) {
+        $data = [];
+    }
+    extract($data);
+    if($users[$username] && strcmp($users[$username], $password) == 0) {
+        $user = $username;
+    }
+}
+=============================================================================
+extract() 函数从数组中将变量导入到当前的符号表。
+
+该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。
+
+该函数返回成功设置的变量数目。
+=============================================================================
+表达里填入username，password，经过处理后写入login_data中。然后再把username，password的值清空。
+以post的方法传入服务器。
+然后再通过extract的方法把name、password的值提取出来。然后再把他们与$users里的数据作比较。
+
+可以利用extract的方法，直接把$users里的值重写。
+如果data['users']={'admin':'1'}，那么extract后，$users={'admin':'1'}
+
+
+
+
