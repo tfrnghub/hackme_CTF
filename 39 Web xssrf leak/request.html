@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>XSSRF - Send Mail</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="style.css" media="all">
+    <style>code.keyword { border: 1px solid #333; padding: 0 2px; margin: 0 2px; border-radius: 3px; white-space: pre; }</style>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+  <a class="navbar-brand" href="index.php">XS <a class="nav-link" href="sendmail.php">Send Mail</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="mailbox.php">Mailbox</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="sentmail.php">Sent Mail</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="setadmin.php">Set Admin</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="request.php">Send Request</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <span class="navbar-text">Hello, admin (Administrator)</span>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="logout.php">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+    <div class="container">
+
+
+      <form action="/request.php" method="POST">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <textarea name="url" class="form-control" id="url" aria-describedby="url" placeholder="URL" rows="10"></textarea>
+        </div>
+
+        <button class="btn btn-primary">Send Request</button>
+      </form>
+    </div>
+  </body>
+</html>

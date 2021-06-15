@@ -1,5 +1,0 @@
-﻿netcat的使用
-
-nc hackme.inndy.tw 7709
-
-cat flag

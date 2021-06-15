@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>XSSRF - Set Admin</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="style.css" media="all">
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+  <a class="navbar-brand" href="index.php">XSSRF</a>
+
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="sendmail.php">Send Mail</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="mailbox.php">Mailbox</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="sentmail.php">Sent Mail</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="setadmin.php">Set Admin</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="request.php">Send Request</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <span class="navbar-text">Hello, admin (Administrator)</span>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="logout.php">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+    <div class="container">
+      <form action="/setadmin.php" method="POST">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" id="username" aria-describedby="username" placeholder="Username">
+        </div>
+
+        <button class="btn btn-primary">Give Admin Access</button>
+      </form>
+    </div>
+  </body>
+</html>

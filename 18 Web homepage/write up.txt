@@ -1,4 +1,7 @@
-####
-cute.js   使用aaencode编码
-####
-F12 -> 控制台:看到二维码，扫码拿到flag
+#########################
+浏览器 F12 network
+https://hackme.inndy.tw/cute.js
+查看console
+二维码
+#########################
+同时也可以把js代码粘贴到浏览器console口

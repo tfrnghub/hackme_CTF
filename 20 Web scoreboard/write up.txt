@@ -1,1 +1,4 @@
-响应头 x-flag
+response headers
+X-Flag: FLAG{Header can hide some data aswell.}
+
+#使用burp suit能更好分析

