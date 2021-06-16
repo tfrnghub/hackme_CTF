@@ -5,5 +5,8 @@
 #重合指数法攻击
 
 
-
 #z3-solver https://zhuanlan.zhihu.com/p/30548907
+
+
+
+http://www.jackson-t.ca/runtime-exec-payloads.html
