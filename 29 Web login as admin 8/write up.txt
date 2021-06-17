@@ -1,0 +1,20 @@
+if($_GET['debug'] === '1') {
+    $session->debug();
+}
+
+curl  'https://hackme.inndy.tw/login8/?debug=1' 
+Debug mode is not enabled
+==========================================================
+Cookie:
+login8cookie=O%3A7%3A%22Session%22%3A6%3A%7Bs%3A14%3A%22%00Session%00debug%22%3Bb%3A0%3Bs%3A19%3A%22%00Session%00debug_dump%22%3Bs%3A9%3A%22index.php%22%3Bs%3A13%3A%22%00Session%00data%22%3Ba%3A0%3A%7B%7Ds%3A4%3A%22user%22%3Bs%3A0%3A%22%22%3Bs%3A4%3A%22pass%22%3Bs%3A0%3A%22%22%3Bs%3A8%3A%22is_admin%22%3Bb%3A0%3B%7D; expires=Fri, 18-Jun-2021 07:15:49 GMT; Max-Age=86400; path=/login8; secure; HttpOnly
+
+'O:7:"Session":6:{s:14:"\x00Session\x00debug";b:0;s:19:"\x00Session\x00debug_dump";s:9:"index.php";s:13:"\x00Session\x00data";a:0:{}s:4:"user";s:0:"";s:4:"pass";s:0:"";s:8:"is_admin";b:0;}'
+
+login8sha512=4feb33685e47c83ce089b1707f270001a8dc0648d4a7d94d0a3e2f5b35803a7c8766285283415c8594e658468cf5e99be232b3bf98a441568a71f709243e9077; expires=Fri, 18-Jun-2021 07:15:49 GMT; Max-Age=86400; path=/login8; secure; HttpOnly
+==========================================================
+可以看到login8cookie 是序列化字符串
+sha512(url_decode(cookie))=
+4feb33685e47c83ce089b1707f270001a8dc0648d4a7d94d0a3e2f5b35803a7c8766285283415c8594e658468cf5e99be232b3bf98a441568a71f709243e9077
+
+
+可以尝试修改序列化字符串 is_admin = 1,并重新计算hash值

@@ -1,0 +1,13 @@
+尝试修改序列化字符串的其它字段
+并结合?debug=1使用
+==========================================================
+'O:7:"Session":6:{s:14:"\x00Session\x00debug";b:0;s:19:"\x00Session\x00debug_dump";s:9:"index.php";s:13:"\x00Session\x00data";a:0:{}s:4:"user";s:0:"";s:4:"pass";s:0:"";s:8:"is_admin";b:0;}'
+
+
+debug = 1 ;Session debug_dump = index.php 
+可以读文件
+index.php
+config.php
+session.php
+
+flag 藏在某个文件里

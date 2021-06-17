@@ -1,0 +1,19 @@
+md5($_POST['password']) == '00000000000000000000000000000000'
+关键点==
+==========================================================
+相关问题
+Why md5('240610708') is equal to md5('QNKCDZO')? [duplicate]
+https://stackoverflow.com/questions/22140204/why-md5240610708-is-equal-to-md5qnkcdzo
+PHP expresses two different strings to be the same [duplicate]
+https://stackoverflow.com/questions/12598407/php-expresses-two-different-strings-to-be-the-same/12598484#12598484
+==========================================================
+For == in php,
+
+    If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically.
+
+http://php.net/manual/en/language.operators.comparison.php
+
+==========================================================
+
+var_dump(md5('240610708')=="0000000000000000000000000000000000000");
+Output: bool(true)
