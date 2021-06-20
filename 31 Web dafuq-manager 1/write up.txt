@@ -1,0 +1,7 @@
+==========================================================
+guest/guest
+Cookie show_hidden 改为yes
+flag1：
+https://dafuq-manager.hackme.inndy.tw/data/guest/.good.job.here.is.your.hidden.flag-1.txt
+flag2 提示:
+https://dafuq-manager.hackme.inndy.tw/data/guest/.where-is-flag-2-please-tell-me.txt

