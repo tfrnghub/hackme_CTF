@@ -1,3 +1,4 @@
 https://www.guballa.de/vigenere-solver
+长度选择30-60
 
 FLAG{VIGENERE CIPHER CAN BE CRACKED BY FREQUENCY ANALYSIS ATTACK}
